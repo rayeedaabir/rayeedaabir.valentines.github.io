@@ -1,125 +1,160 @@
-<!-- rayeedaabir.com starter layout -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rayeed Aabir</title>
-  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.js"></script>
-  <link href="https://cdn.jsdelivr.net/npm/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Day</title>
+    <!-- Simple heart icon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💝</text></svg>">
+    <style>
+        body {
+            /* Navy to Maroon Gradient */
+            background: linear-gradient(135deg, #020024 0%, #090979 35%, #560319 100%);
+            background-size: 200% 200%;
+            animation: gradientBG 15s ease infinite;
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive; /* Keeping font as requested */
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: white;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            text-align: center;
+            /* Glassmorphism Effect */
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            max-width: 90%;
+            width: 400px;
+        }
+
+        h1 {
+            color: #ff99cc; /* Light pink to pop against dark bg */
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        input {
+            padding: 15px;
+            margin: 10px 0;
+            width: 80%;
+            font-size: 1.1em;
+            border-radius: 25px;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        input:focus {
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.6);
+            transform: scale(1.02);
+        }
+
+        button {
+            padding: 12px 30px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            background: linear-gradient(45deg, #ff6b6b, #ff8e53);
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        #generatedLink {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #ffe4e1;
+            display: none;
+        }
+
+        #linkField {
+            background-color: rgba(0, 0, 0, 0.2);
+            color: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body class="bg-gray-100 text-gray-800 font-sans">
-  <!-- Navbar -->
-  <header class="bg-white shadow-md sticky top-0 z-50">
-    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
-      <h1 class="text-xl font-bold">rayeedaabir.com</h1>
-      <nav class="space-x-4">
-        <a href="#home" class="hover:text-blue-500">Home</a>
-        <a href="#projects" class="hover:text-blue-500">Projects</a>
-        <a href="#blogs" class="hover:text-blue-500">Blogs</a>
-        <a href="#nsu" class="hover:text-blue-500">NSU</a>
-        <a href="#personal" class="hover:text-blue-500">Personal?</a>
-      </nav>
+<body>
+    <div class="container">
+        <h1>Make Your Invite 🤞</h1>
+        <input type="text" id="yourName" placeholder="Your Name">
+        <input type="text" id="baeName" placeholder="Bae's Name">
+        <br>
+        <button onclick="generateLink()">Generate Link</button>
+        
+        <p id="generatedLink">Share this link with her:</p>
+        <input type="text" id="linkField" readonly onclick="copyLink()">
+        <br>
+        <button onclick="copyLink()" id="copyBtn" style="display:none; background: #4CAF50;">Copy Link</button>
     </div>
-  </header>
 
-  <!-- Hero Section -->
-  <section id="home" class="text-center py-20" data-aos="fade-up">
-    <h2 class="text-4xl font-bold mb-4">Hi, I’m Rayeed Aabir</h2>
-    <p class="text-lg">A digital garden for all things me — professional, personal, and everything in between.</p>
-  </section>
+    <script>
+        function generateLink() {
+            const yourName = document.getElementById('yourName').value.trim();
+            const baeName = document.getElementById('baeName').value.trim();
+            
+            if (yourName && baeName) {
+                const link = `https://rayeedaabir.github.io/valentine.html?from=${encodeURIComponent(yourName)}&to=${encodeURIComponent(baeName)}`;
+                
+                const linkField = document.getElementById('linkField');
+                linkField.value = link;
+                linkField.style.display = 'inline-block';
+                
+                document.getElementById('generatedLink').style.display = 'block';
+                document.getElementById('copyBtn').style.display = 'inline-block';
+            } else {
+                alert('Please enter both names!');
+            }
+        }
 
-  <!-- Project Cards Section -->
-  <section id="projects" class="py-16 px-4 bg-white" data-aos="fade-up">
-    <h2 class="text-2xl font-semibold text-center mb-6">Featured Projects</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      <div class="p-6 bg-gray-100 rounded-xl shadow-md hover:shadow-xl transition">
-        <h3 class="font-semibold text-lg">Project One</h3>
-        <p class="text-sm">Short description of the project.</p>
-        <a href="https://github.com/rayeedaabir" target="_blank" class="text-blue-500 text-sm mt-2 inline-block">View on GitHub →</a>
-      </div>
-      <!-- Add more cards as needed -->
-    </div>
-  </section>
+        function copyLink() {
+            const linkField = document.getElementById('linkField');
+            if (!linkField.value) return;
+            
+            linkField.select();
+            linkField.setSelectionRange(0, 99999); // Mobile support
 
-  <!-- Blog Preview Section -->
-  <section id="blogs" class="py-16 px-4" data-aos="fade-up">
-    <h2 class="text-2xl font-semibold text-center mb-6">Professional Blog</h2>
-    <div id="blog-posts" class="space-y-4 text-center"></div>
-  </section>
-
-  <!-- NSU Section -->
-  <section id="nsu" class="py-16 px-4 bg-white" data-aos="fade-up">
-    <h2 class="text-2xl font-semibold text-center mb-6">NSU Zone</h2>
-    <p class="text-center">Resources, projects, and notes from my journey at NSU.</p>
-    <!-- You can add sublinks/cards here later -->
-  </section>
-
-  <!-- Personal Section Trigger -->
-  <section id="personal" class="py-16 px-4" data-aos="fade-up">
-    <h2 class="text-2xl font-semibold text-center mb-6">Access Personal Blog</h2>
-    <div class="text-center">
-      <button onclick="openQuiz()" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Answer Questions</button>
-    </div>
-  </section>
-
-  <!-- Quiz Modal (hidden initially) -->
-  <div id="quizModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-xl shadow-lg w-96">
-      <h3 class="text-lg font-semibold mb-4">Answer these to unlock personal blog:</h3>
-      <div class="space-y-2">
-        <input type="text" id="q1" placeholder="What’s my favorite colour?" class="w-full border p-2 rounded" />
-        <input type="text" id="q2" placeholder="What city was I born in?" class="w-full border p-2 rounded" />
-        <input type="text" id="q3" placeholder="What handed am I?" class="w-full border p-2 rounded" />
-      </div>
-      <div class="flex justify-between mt-4">
-        <button onclick="checkAnswers()" class="bg-green-600 text-white px-4 py-2 rounded">Submit</button>
-        <button onclick="closeQuiz()" class="text-red-500">Cancel</button>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    AOS.init();
-
-    const blogPosts = [
-      { title: "AI and the Future of Work", date: "2025-05-20", content: "Short preview of a professional post..." },
-      { title: "5 Ways to Debug Like a Pro", date: "2025-05-15", content: "Useful debugging habits for every developer..." }
-    ];
-
-    const renderPosts = () => {
-      const container = document.getElementById('blog-posts');
-      blogPosts.forEach(post => {
-        const postDiv = document.createElement('div');
-        postDiv.className = "bg-white p-4 rounded shadow";
-        postDiv.innerHTML = `<h3 class='text-lg font-bold'>${post.title}</h3><p class='text-sm text-gray-500'>${post.date}</p><p>${post.content}</p>`;
-        container.appendChild(postDiv);
-      });
-    };
-
-    renderPosts();
-
-    function openQuiz() {
-      document.getElementById('quizModal').classList.remove('hidden');
-    }
-
-    function closeQuiz() {
-      document.getElementById('quizModal').classList.add('hidden');
-    }
-
-    function checkAnswers() {
-      const a1 = document.getElementById('q1').value.toLowerCase();
-      const a2 = document.getElementById('q2').value.toLowerCase();
-      const a3 = document.getElementById('q3').value.toLowerCase();
-
-      if (a1 === 'black' && a2 === 'dhaka' && a3 === 'left') {
-        alert('Access granted! Redirecting to personal blog...');
-        window.location.href = '/personal-blog.html'; // Create this page later
-      } else {
-        alert('Incorrect answers. Try again.');
-      }
-    }
-  </script>
+            navigator.clipboard.writeText(linkField.value).then(() => {
+                const btn = document.getElementById('copyBtn');
+                const originalText = btn.innerText;
+                btn.innerText = "Copied!";
+                btn.style.background = "#45a049";
+                setTimeout(() => {
+                    btn.innerText = originalText;
+                    btn.style.background = "#4CAF50";
+                }, 2000);
+            }).catch(err => {
+                console.error('Failed to copy: ', err);
+            });
+        }
+    </script>
 </body>
 </html>
